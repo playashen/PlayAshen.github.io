@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="512" height="512">
+  <!-- Ashen icon: a campfire flame on the night sky, the front door's colours -->
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="78%" r="62%">
+      <stop offset="0" stop-color="#5a2a12"/>
+      <stop offset="1" stop-color="#121a21"/>
+    </radialGradient>
+    <linearGradient id="flame" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffd27a"/>
+      <stop offset=".35" stop-color="#f9a24a"/>
+      <stop offset=".75" stop-color="#e8662a"/>
+      <stop offset="1" stop-color="#b03a16"/>
+    </linearGradient>
+    <linearGradient id="core" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff4d6"/>
+      <stop offset="1" stop-color="#ffc25e"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#glow)"/>
+  <g stroke="#2b1406" stroke-width="1.2">
+    <rect x="13" y="47" width="38" height="7" rx="3.5" fill="#7a4a26" transform="rotate(-14 32 50.5)"/>
+    <rect x="13" y="47" width="38" height="7" rx="3.5" fill="#8f5a2f" transform="rotate(14 32 50.5)"/>
+  </g>
+  <path d="M32 6c4 10 14 16 14 30 0 9.5-6.3 15-14 15s-14-5.5-14-15c0-8 4.8-12 7-19 2 6 4 9 6 9-1.2-7-1-13 1-20z" fill="url(#flame)"/>
+  <path d="M32 27c3 5.5 7.5 8.5 7.5 14.5 0 5.5-3.4 9-7.5 9s-7.5-3.5-7.5-8c0-4.2 3-6.6 4.2-10.6 1.2 3 2.3 4.2 3.5 4.2-.8-3.4-.8-6.4-.2-9.1z" fill="url(#core)"/>
+</svg>
