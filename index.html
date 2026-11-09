@@ -3,9 +3,25 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Ashen</title>
-<meta name="description" content="Ashen is a multiplayer survival game you play in your browser. Survive the ash. Outlast the night.">
+<title>PlayAshen – Free Multiplayer Survival Game in Your Browser</title>
+<meta name="description" content="PlayAshen: Ashen is a free multiplayer survival game you play in your browser, no download. Gather, craft, build a base, team up and survive the zombie nights.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://playashen.github.io/">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta property="og:image" content="https://playashen.github.io/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:image:alt" content="The Ashen campfire logo">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PlayAshen">
+<meta property="og:title" content="PlayAshen – Free Multiplayer Survival Game in Your Browser">
+<meta property="og:description" content="Gather, craft, build a base, team up and survive the zombie nights. Free, in your browser, no download.">
+<meta property="og:url" content="https://playashen.github.io/">
+<meta name="twitter:card" content="summary">
 <meta name="theme-color" content="#121a21">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoGame","name":"Ashen","alternateName":"PlayAshen","url":"https://playashen.github.io/","image":"https://playashen.github.io/icon-512.png","description":"A free multiplayer survival game you play in your browser. Gather, craft, build a base, team up and survive the zombie nights.","genre":["Survival","Multiplayer","Sandbox"],"gamePlatform":"Web browser","playMode":["MultiPlayer","CoOp"],"applicationCategory":"Game","operatingSystem":"Any (web browser)","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Barlow:wght@500;600&family=Barlow+Condensed:wght@600;700&display=swap">
@@ -40,7 +56,13 @@ h1 span{display:inline-block;padding:0 4px 10px;background:linear-gradient(178de
 .retry:hover{color:#ffd28a;border-bottom-color:#ffd28a}
 .go:focus-visible,.retry:focus-visible{outline:2px solid #ffd28a;outline-offset:4px}
 [hidden]{display:none!important}
-.foot{margin:64px 0 0;color:rgba(151,160,163,.75);font-size:15px;max-width:58ch}
+.about{margin:64px 0 0;max-width:60ch;color:var(--ash);font-size:17px}
+.about h2{margin:0 0 8px;color:var(--bone);font:700 22px/1.2 'Barlow Condensed',sans-serif;letter-spacing:.02em}
+.about p{margin:0 0 10px}
+.about ul{margin:0;padding-left:20px}
+.about li{margin:4px 0}
+.about b{color:var(--bone);font-weight:600}
+.foot{margin:28px 0 0;color:rgba(151,160,163,.75);font-size:15px;max-width:58ch}
 @media (prefers-reduced-motion:reduce){.dot.wait{animation:none}}
 </style>
 </head>
@@ -56,7 +78,18 @@ h1 span{display:inline-block;padding:0 4px 10px;background:linear-gradient(178de
     <button class="retry" id="retry" type="button" hidden>Check again</button>
   </div>
 
-  <p class="foot">Ashen is a multiplayer survival game you play in your browser. The server runs on a home PC, so it is only up while its owner has it switched on. Your character is remembered in this browser.</p>
+  <section class="about" aria-labelledby="about-h">
+    <h2 id="about-h">About Ashen</h2>
+    <p>Ashen (PlayAshen) is a free multiplayer survival game you play right in your browser. No download, no account. Gather wood, stone and ore, craft tools and weapons, build a base with walls, doors and chests, and get through the night when the zombies come.</p>
+    <ul>
+      <li><b>Survive the night.</b> Every night brings a zombie wave, and tougher kinds join as you play longer.</li>
+      <li><b>Build and craft.</b> Workbenches, a smelter, campfires, guns, bows and explosives.</li>
+      <li><b>Play together.</b> Make a team of up to 7, share a base, or fight other survivors.</li>
+      <li><b>Explore.</b> Ruined houses, a lava city and a desert full of snakes.</li>
+    </ul>
+  </section>
+
+  <p class="foot">The server runs on a home PC, so it is only up while its owner has it switched on. Your character is remembered in this browser.</p>
 </main>
 <script>
 'use strict';
