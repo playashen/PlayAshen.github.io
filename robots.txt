@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /link.json
+
+Sitemap: https://playashen.github.io/sitemap.xml
