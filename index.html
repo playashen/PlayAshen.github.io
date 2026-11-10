@@ -3,25 +3,33 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>PlayAshen – Free Multiplayer Survival Game in Your Browser</title>
-<meta name="description" content="PlayAshen: Ashen is a free multiplayer survival game you play in your browser, no download. Gather, craft, build a base, team up and survive the zombie nights.">
-<meta name="robots" content="index, follow">
+<title>PlayAshen – Free Multiplayer Zombie Survival Game in Your Browser</title>
+<meta name="description" content="Ashen is a free multiplayer zombie survival game you play in your browser, no download or account. Gather, craft, build a base, team up with friends and survive the night.">
+<meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href="https://playashen.github.io/">
+<link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="icon" type="image/svg+xml" href="icon.svg">
 <link rel="apple-touch-icon" href="icon-192.png">
-<meta property="og:image" content="https://playashen.github.io/icon-512.png">
-<meta property="og:image:width" content="512">
-<meta property="og:image:height" content="512">
-<meta property="og:image:alt" content="The Ashen campfire logo">
+<meta name="application-name" content="Ashen">
+<meta name="apple-mobile-web-app-title" content="Ashen">
+<!-- the picture shown when the link is shared (Discord, Reddit, X, WhatsApp, iMessage...): 1200 x 630 -->
+<meta property="og:image" content="https://playashen.github.io/og-card.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Ashen: a lone survivor by a campfire under a burning moon. Free multiplayer survival in your browser.">
 <meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="PlayAshen">
-<meta property="og:title" content="PlayAshen – Free Multiplayer Survival Game in Your Browser">
-<meta property="og:description" content="Gather, craft, build a base, team up and survive the zombie nights. Free, in your browser, no download.">
+<meta property="og:title" content="Ashen – Free Multiplayer Zombie Survival in Your Browser">
+<meta property="og:description" content="Gather, craft, build a base, team up with friends and survive the zombie nights. Free, in your browser, no download.">
 <meta property="og:url" content="https://playashen.github.io/">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Ashen – Free Multiplayer Zombie Survival in Your Browser">
+<meta name="twitter:description" content="Gather, craft, build a base, team up with friends and survive the zombie nights. Free, no download.">
+<meta name="twitter:image" content="https://playashen.github.io/og-card.jpg">
 <meta name="theme-color" content="#121a21">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoGame","name":"Ashen","alternateName":"PlayAshen","url":"https://playashen.github.io/","image":"https://playashen.github.io/icon-512.png","description":"A free multiplayer survival game you play in your browser. Gather, craft, build a base, team up and survive the zombie nights.","genre":["Survival","Multiplayer","Sandbox"],"gamePlatform":"Web browser","playMode":["MultiPlayer","CoOp"],"applicationCategory":"Game","operatingSystem":"Any (web browser)","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoGame","name":"Ashen","alternateName":["PlayAshen","Play Ashen"],"url":"https://playashen.github.io/","image":"https://playashen.github.io/og-card.jpg","thumbnailUrl":"https://playashen.github.io/icon-512.png","description":"A free multiplayer zombie survival game you play in your browser. Gather, craft, build a base, team up with friends and survive the zombie nights.","genre":["Survival","Multiplayer","Sandbox","Zombie","Crafting"],"keywords":"survival game, zombie game, multiplayer browser game, io game, crafting, base building, free online game","gamePlatform":"Web browser","playMode":["MultiPlayer","CoOp"],"numberOfPlayers":{"@type":"QuantitativeValue","minValue":1,"maxValue":60},"applicationCategory":"Game","operatingSystem":"Any (web browser)","inLanguage":"en","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Barlow:wght@500;600&family=Barlow+Condensed:wght@600;700&display=swap">
@@ -62,6 +70,9 @@ h1 span{display:inline-block;padding:0 4px 10px;background:linear-gradient(178de
 .about ul{margin:0;padding-left:20px}
 .about li{margin:4px 0}
 .about b{color:var(--bone);font-weight:600}
+.more{margin:16px 0 0}
+.more a{color:var(--ember);font-weight:600;text-decoration:none;border-bottom:1px solid rgba(243,154,59,.4)}
+.more a:hover{color:#ffd28a;border-bottom-color:#ffd28a}
 .foot{margin:28px 0 0;color:rgba(151,160,163,.75);font-size:15px;max-width:58ch}
 @media (prefers-reduced-motion:reduce){.dot.wait{animation:none}}
 </style>
@@ -80,13 +91,14 @@ h1 span{display:inline-block;padding:0 4px 10px;background:linear-gradient(178de
 
   <section class="about" aria-labelledby="about-h">
     <h2 id="about-h">About Ashen</h2>
-    <p>Ashen (PlayAshen) is a free multiplayer survival game you play right in your browser. No download, no account. Gather wood, stone and ore, craft tools and weapons, build a base with walls, doors and chests, and get through the night when the zombies come.</p>
+    <p>Ashen (PlayAshen) is a free multiplayer zombie survival game you play right in your browser, in the style of an .io game. No download, no account. Gather wood, stone and ore, craft tools and weapons, build a base with walls, doors and chests, and get through the night when the zombies come. It runs in Chrome, Edge, Firefox, Safari and Opera on a computer.</p>
     <ul>
       <li><b>Survive the night.</b> Every night brings a zombie wave, and tougher kinds join as you play longer.</li>
       <li><b>Build and craft.</b> Workbenches, a smelter, campfires, guns, bows and explosives.</li>
       <li><b>Play together.</b> Make a team of up to 7, share a base, or fight other survivors.</li>
       <li><b>Explore.</b> Ruined houses, a lava city and a desert full of snakes.</li>
     </ul>
+    <p class="more"><a href="guide.html">How to play: controls, zombies, building and tips</a></p>
   </section>
 
   <p class="foot">The server runs on a home PC, so it is only up while its owner has it switched on. Your character is remembered in this browser.</p>
@@ -104,6 +116,9 @@ const SAFE = local ? /^https?:\/\/(127\.0\.0\.1|localhost)(:\d+)?$|^https:\/\/[a
 // Your character: the server knows you by a secret key. The game's address changes whenever the server restarts, so this page
 // keeps your key and hands it to the game every time. Without it you would start over after every restart.
 const KEY = 'ashen-player-key';
+// someone who has played before goes straight into the game; a first-time visitor (or a search engine) stays on this page and
+// presses Play, so they can read what the game is, and search engines see a page instead of a jump to a changing address
+let returning = false; try { returning = !!localStorage.getItem(KEY); } catch (e) {}
 function playerKey(){
   let k = null; try { k = localStorage.getItem(KEY); } catch (e) {}
   if (!k || !/^[A-Za-z0-9_-]{43}$/.test(k)){
@@ -141,12 +156,14 @@ async function check(){
   try { const r = await withTimeout(fetch(url + '/status', { cache: 'no-store' }), 8000); if (r.ok) st = await r.json(); } catch (e) {}
   if (!st) return later('bad', 'The server is not answering', 'It may be starting up or just switched off. This page checks again every 20 seconds.');
   const n = st.online | 0, max = st.max | 0, full = max && n >= max;
-  const go = url + '/#t=' + playerKey();
-  $('go').href = go; $('go').hidden = false;
+  $('go').href = url + '/'; $('go').hidden = false;   // the key is only made (and added) when they actually press Play
   if (full) return later('bad', `The server is full (${n} of ${max})`, 'Someone has to leave first. This page checks again every 20 seconds.', true);
-  show('ok', n ? `${n} of ${max} survivors online` : `The server is up. Room for ${max}.`, 'Taking you there…');
-  setTimeout(() => location.replace(go), 900);
+  const head = n ? `${n} of ${max} survivors online` : `The server is up. Room for ${max}.`;
+  if (!returning){ show('ok', head, 'Press Play to join. No download or account needed.'); timer = setTimeout(check, 60000); return; }
+  show('ok', head, 'Taking you there…');
+  setTimeout(() => location.replace(url + '/#t=' + playerKey()), 900);
 }
+$('go').addEventListener('click', e => { const h = $('go').getAttribute('href'); if (!h || h === '#') return; e.preventDefault(); location.assign(h.replace(/\/?$/, '/') + '#t=' + playerKey()); });
 function later(state, msg, sub, keepPlay){
   show(state, msg, sub); $('retry').hidden = false; if (!keepPlay) $('go').hidden = true;
   timer = setTimeout(check, 20000);
