@@ -1,26 +1,108 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="512" height="512">
-  <!-- Ashen icon: a campfire flame on the night sky, the front door's colours -->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Ashen: a lone survivor on a hill by a small fire, watching a burning moon go down behind the ruined city while ash falls -->
   <defs>
-    <radialGradient id="glow" cx="50%" cy="78%" r="62%">
-      <stop offset="0" stop-color="#5a2a12"/>
-      <stop offset="1" stop-color="#121a21"/>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#06090f"/>
+      <stop offset=".55" stop-color="#1d1117"/>
+      <stop offset="1" stop-color="#2c130b"/>
+    </linearGradient>
+    <radialGradient id="halo" cx="256" cy="226" r="250" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ff8a3a" stop-opacity=".6"/>
+      <stop offset=".45" stop-color="#c4452e" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#c4452e" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="moon" cx="236" cy="190" r="175" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff3cf"/>
+      <stop offset=".3" stop-color="#ffc368"/>
+      <stop offset=".72" stop-color="#ef6c2a"/>
+      <stop offset="1" stop-color="#9e2b17"/>
+    </radialGradient>
+    <linearGradient id="city" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#47201a"/>
+      <stop offset="1" stop-color="#1b0d0b"/>
+    </linearGradient>
+    <linearGradient id="hill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#150d0b"/>
+      <stop offset="1" stop-color="#040405"/>
+    </linearGradient>
+    <radialGradient id="fireglow" cx="190" cy="388" r="130" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffb04a" stop-opacity=".8"/>
+      <stop offset=".35" stop-color="#ff6a22" stop-opacity=".3"/>
+      <stop offset="1" stop-color="#ff6a22" stop-opacity="0"/>
     </radialGradient>
     <linearGradient id="flame" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#ffd27a"/>
-      <stop offset=".35" stop-color="#f9a24a"/>
-      <stop offset=".75" stop-color="#e8662a"/>
-      <stop offset="1" stop-color="#b03a16"/>
+      <stop offset="0" stop-color="#fff0b8"/>
+      <stop offset=".4" stop-color="#ffb347"/>
+      <stop offset="1" stop-color="#e2501f"/>
     </linearGradient>
-    <linearGradient id="core" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#fff4d6"/>
-      <stop offset="1" stop-color="#ffc25e"/>
-    </linearGradient>
+    <radialGradient id="vignette" cx="256" cy="250" r="370" gradientUnits="userSpaceOnUse">
+      <stop offset=".55" stop-color="#000" stop-opacity="0"/>
+      <stop offset="1" stop-color="#000" stop-opacity=".72"/>
+    </radialGradient>
+    <filter id="blur3" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="3"/></filter>
+    <filter id="blur8" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="8"/></filter>
+    <clipPath id="frame"><rect width="512" height="512" rx="96"/></clipPath>
+    <!-- the survivor (seen from behind), drawn in currentColor so it can be reused for the glow around it. Feet at 0,0 -->
+    <g id="survivor" fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0-172c10 0 16 8 16 18 0 7-3 12-7 16h-18c-4-4-7-9-6-16 0-10 6-18 15-18z"/>
+      <path stroke="none" d="M-10-140c-15 3-23 12-25 25l-4 50-5 26 8-4 7 6 7-7 7 7 7-7 7 7 7-7 7 6 8 4-5-26-4-50c-2-13-10-22-25-25z"/>
+      <path stroke="none" d="M-13-44l-4 44h11l3-44zM4-44l2 44h11l-3-44z"/>
+      <path fill="none" stroke-width="9" d="M-30-122c-6 16-8 34-9 50"/>
+      <path fill="none" stroke-width="4.5" d="M-40-76l-15 70"/>
+      <path stroke="none" d="M-59-8c-9-3-13-12-11-21 9 1 16 7 19 15z"/>
+      <path fill="none" stroke-width="4.5" d="M15-124l17-50"/>
+      <path stroke="none" d="M7-138c14-4 28-3 40-10 8-4 14-4 22 0-8 2-12 8-20 12-14 6-28 6-42 7z"/>
+    </g>
   </defs>
-  <rect width="64" height="64" rx="14" fill="url(#glow)"/>
-  <g stroke="#2b1406" stroke-width="1.2">
-    <rect x="13" y="47" width="38" height="7" rx="3.5" fill="#7a4a26" transform="rotate(-14 32 50.5)"/>
-    <rect x="13" y="47" width="38" height="7" rx="3.5" fill="#8f5a2f" transform="rotate(14 32 50.5)"/>
+  <g clip-path="url(#frame)">
+    <rect width="512" height="512" fill="url(#sky)"/>
+    <circle cx="256" cy="226" r="250" fill="url(#halo)"/>
+    <!-- the burning moon, hazy with smoke -->
+    <circle cx="256" cy="220" r="152" fill="url(#moon)"/>
+    <g fill="#7a2512" filter="url(#blur8)" opacity=".28">
+      <ellipse cx="220" cy="170" rx="120" ry="10"/><ellipse cx="300" cy="236" rx="130" ry="9"/>
+    </g>
+    <g fill="#c2501f" opacity=".18"><circle cx="300" cy="150" r="18"/><circle cx="196" cy="236" r="12"/><circle cx="330" cy="290" r="10"/></g>
+    <!-- the ruined city on the horizon (kept low in the middle so the survivor stands against the moon) -->
+    <path fill="url(#city)" d="M0 380V330h24v-30h16v14h18v-52l10-8 8 8v56h20v-30h24v42h14v-80l14-12 8 10 8-4v86h20v-34h22v30h16v-8h24v16h16v-12h14v16h62v-14h14v-24h20v-24l10-8 10 10v38h18v-26h22v22h20v-50l10-8 8 8v58h20v-20h22v80z"/>
+    <g fill="#ffb862" opacity=".6">
+      <rect x="62" y="280" width="4" height="6"/><rect x="140" y="262" width="4" height="6"/><rect x="154" y="282" width="4" height="6"/>
+      <rect x="382" y="292" width="4" height="6"/><rect x="456" y="286" width="4" height="6"/><rect x="104" y="304" width="4" height="6"/>
+    </g>
+    <!-- the hill: its crest is where the survivor stands -->
+    <path fill="url(#hill)" d="M0 414c80-30 150-40 214-42 40-1 66-10 92-12 60-2 130 10 206-4v156H0z"/>
+    <!-- a dead tree -->
+    <g stroke="#050405" stroke-linecap="round" fill="none">
+      <path d="M70 412c4-50 0-98-10-146" stroke-width="11"/>
+      <path d="M64 322c-18-16-26-34-30-54M62 296c14-18 30-26 46-30M60 272c-6-16-4-30 2-44M36 270c-10-4-18-12-22-22M106 266c8-8 12-18 12-28" stroke-width="5"/>
+    </g>
+    <!-- the fire's light on the ground -->
+    <ellipse cx="196" cy="398" rx="130" ry="46" fill="url(#fireglow)"/>
+    <!-- the survivor on the crest: a soft glow from the moon behind, a warm edge from the fire, then the silhouette -->
+    <use xlink:href="#survivor" href="#survivor" transform="translate(306 364)" color="#ffcf7a" opacity=".55" filter="url(#blur3)"/>
+    <use xlink:href="#survivor" href="#survivor" transform="translate(303.5 364)" color="#ff8a3a" opacity=".9"/>
+    <use xlink:href="#survivor" href="#survivor" transform="translate(306 364)" color="#05070a"/>
+    <!-- the campfire -->
+    <g>
+      <circle cx="194" cy="380" r="28" fill="#ffb04a" opacity=".4" filter="url(#blur8)"/>
+      <path fill="#3a2214" stroke="#120a06" stroke-width="2" d="M170 396l46-12 3 8-46 12zM172 384l46 12-3 8-46-12z"/>
+      <path fill="url(#flame)" d="M194 346c5 11 15 17 15 32 0 9-6 14-15 14s-15-5-15-14c0-9 6-12 8-20 2 6 3 8 5 8-1-7 0-13 2-20z"/>
+      <path fill="#fff6d8" d="M194 369c2 4 6 7 6 12 0 4-3 7-6 7s-6-3-6-7c0-3 2-6 3-9 1 2 2 3 3 3 0-2 0-4 0-6z"/>
+    </g>
+    <!-- sparks rising from the fire, drifting with the wind -->
+    <g fill="#ffb347">
+      <circle cx="202" cy="330" r="2.4"/><circle cx="190" cy="312" r="1.7"/><circle cx="212" cy="296" r="1.9" opacity=".85"/>
+      <circle cx="200" cy="276" r="1.4" opacity=".7"/><circle cx="220" cy="258" r="1.2" opacity=".55"/><circle cx="208" cy="238" r="1" opacity=".45"/>
+    </g>
+    <!-- falling ash -->
+    <g fill="#d9d2c8">
+      <circle cx="58" cy="64" r="2.4" opacity=".7"/><circle cx="132" cy="38" r="1.8" opacity=".55"/><circle cx="196" cy="92" r="2.2" opacity=".6"/>
+      <circle cx="388" cy="52" r="2.6" opacity=".7"/><circle cx="452" cy="118" r="1.8" opacity=".55"/><circle cx="436" cy="214" r="2.2" opacity=".6"/>
+      <circle cx="40" cy="168" r="1.6" opacity=".5"/><circle cx="470" cy="300" r="2" opacity=".5"/><circle cx="352" cy="118" r="1.5" opacity=".5"/>
+      <circle cx="104" cy="214" r="1.4" opacity=".4"/><circle cx="300" cy="34" r="2" opacity=".55"/><circle cx="160" cy="150" r="1.3" opacity=".45"/>
+      <circle cx="420" cy="356" r="1.6" opacity=".45"/><circle cx="24" cy="300" r="1.8" opacity=".45"/><circle cx="490" cy="20" r="1.6" opacity=".5"/>
+      <circle cx="250" cy="120" r="1.5" opacity=".5"/><circle cx="276" cy="196" r="1.2" opacity=".45"/>
+    </g>
+    <rect width="512" height="512" fill="url(#vignette)"/>
   </g>
-  <path d="M32 6c4 10 14 16 14 30 0 9.5-6.3 15-14 15s-14-5.5-14-15c0-8 4.8-12 7-19 2 6 4 9 6 9-1.2-7-1-13 1-20z" fill="url(#flame)"/>
-  <path d="M32 27c3 5.5 7.5 8.5 7.5 14.5 0 5.5-3.4 9-7.5 9s-7.5-3.5-7.5-8c0-4.2 3-6.6 4.2-10.6 1.2 3 2.3 4.2 3.5 4.2-.8-3.4-.8-6.4-.2-9.1z" fill="url(#core)"/>
 </svg>
