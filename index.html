@@ -30,9 +30,7 @@
 <meta name="twitter:image" content="https://playashen.github.io/og-card.jpg">
 <meta name="theme-color" content="#121a21">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoGame","name":"Ashen","alternateName":["PlayAshen","Play Ashen"],"url":"https://playashen.github.io/","image":"https://playashen.github.io/og-card.jpg","thumbnailUrl":"https://playashen.github.io/icon-512.png","description":"A free multiplayer zombie survival game you play in your browser. Gather, craft, build a base, team up with friends and survive the zombie nights.","genre":["Survival","Multiplayer","Sandbox","Zombie","Crafting"],"keywords":"survival game, zombie game, multiplayer browser game, io game, crafting, base building, free online game","gamePlatform":"Web browser","playMode":["MultiPlayer","CoOp"],"numberOfPlayers":{"@type":"QuantitativeValue","minValue":1,"maxValue":60},"applicationCategory":"Game","operatingSystem":"Any (web browser)","inLanguage":"en","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Barlow:wght@500;600&family=Barlow+Condensed:wght@600;700&display=swap">
+<link rel="stylesheet" href="fonts.css">
 <style>
 /* The front door to Ashen. This page never changes address; it finds where the game server is right now and sends you there.
    Same look as the game's home screen: a clearing at night, a campfire off the bottom-left, the moon at the top-right. */
@@ -73,6 +71,8 @@ h1 span{display:inline-block;padding:0 4px 10px;background:linear-gradient(178de
 .more{margin:16px 0 0}
 .more a{color:var(--ember);font-weight:600;text-decoration:none;border-bottom:1px solid rgba(243,154,59,.4)}
 .more a:hover{color:#ffd28a;border-bottom-color:#ffd28a}
+.foot a{color:inherit;text-underline-offset:2px}
+.foot a:hover{color:var(--bone)}
 .foot{margin:28px 0 0;color:rgba(151,160,163,.75);font-size:15px;max-width:58ch}
 @media (prefers-reduced-motion:reduce){.dot.wait{animation:none}}
 </style>
@@ -101,7 +101,7 @@ h1 span{display:inline-block;padding:0 4px 10px;background:linear-gradient(178de
     <p class="more"><a href="guide.html">How to play: controls, zombies, building and tips</a></p>
   </section>
 
-  <p class="foot">The server runs on a home PC, so it is only up while its owner has it switched on. Your character is remembered in this browser.</p>
+  <p class="foot">The server runs on a home PC, so it is only up while its owner has it switched on. Your character is remembered in this browser. <a href="rules.html">Rules</a> · <a href="privacy.html">Privacy</a> · © 2026 Ashen. All rights reserved.</p>
 </main>
 <script>
 'use strict';
@@ -119,6 +119,15 @@ const KEY = 'ashen-player-key';
 // someone who has played before goes straight into the game; a first-time visitor (or a search engine) stays on this page and
 // presses Play, so they can read what the game is, and search engines see a page instead of a jump to a changing address
 let returning = false; try { returning = !!localStorage.getItem(KEY); } catch (e) {}
+// where this visitor came from, for the server's play statistics: just a site name (reddit.com) or a tag you put on your own
+// links (playashen.github.io/?ref=tiktok). Nothing else about the visit is recorded, and nothing is sent until they press Play.
+const REF = (() => {
+  const tag = (new URLSearchParams(location.search).get('ref') || '').toLowerCase();
+  if (/^[a-z0-9_-]{1,40}$/.test(tag)) return tag;
+  try { const h = new URL(document.referrer).hostname.replace(/^www\./, ''); if (h && h !== location.hostname && /^[a-z0-9.-]{1,60}$/.test(h)) return h; } catch (e) {}
+  return '';
+})();
+const gameLink = base => base.replace(/\/?$/, '/') + '#t=' + playerKey() + (REF ? '&r=' + REF : '');
 function playerKey(){
   let k = null; try { k = localStorage.getItem(KEY); } catch (e) {}
   if (!k || !/^[A-Za-z0-9_-]{43}$/.test(k)){
@@ -161,9 +170,9 @@ async function check(){
   const head = n ? `${n} of ${max} survivors online` : `The server is up. Room for ${max}.`;
   if (!returning){ show('ok', head, 'Press Play to join. No download or account needed.'); timer = setTimeout(check, 60000); return; }
   show('ok', head, 'Taking you there…');
-  setTimeout(() => location.replace(url + '/#t=' + playerKey()), 900);
+  setTimeout(() => location.replace(gameLink(url)), 900);
 }
-$('go').addEventListener('click', e => { const h = $('go').getAttribute('href'); if (!h || h === '#') return; e.preventDefault(); location.assign(h.replace(/\/?$/, '/') + '#t=' + playerKey()); });
+$('go').addEventListener('click', e => { const h = $('go').getAttribute('href'); if (!h || h === '#') return; e.preventDefault(); location.assign(gameLink(h)); });
 function later(state, msg, sub, keepPlay){
   show(state, msg, sub); $('retry').hidden = false; if (!keepPlay) $('go').hidden = true;
   timer = setTimeout(check, 20000);
