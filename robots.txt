@@ -1,5 +1,7 @@
 User-agent: *
 Allow: /
 Disallow: /link.json
+Disallow: /play-offline.html
+Disallow: /offline-core.js
 
 Sitemap: https://playashen.github.io/sitemap.xml
