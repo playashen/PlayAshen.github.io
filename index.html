@@ -75,6 +75,24 @@ h1 span{display:inline-block;padding:0 4px 10px;background:linear-gradient(178de
 .foot a:hover{color:var(--bone)}
 .foot{margin:28px 0 0;color:rgba(151,160,163,.75);font-size:15px;max-width:58ch}
 @media (prefers-reduced-motion:reduce){.dot.wait{animation:none}}
+.offl{font:inherit;color:inherit;background:none;border:0;padding:0;text-decoration:underline;text-underline-offset:2px;cursor:pointer;opacity:.7}
+.offl:hover{color:var(--bone);opacity:1}
+#offDlg{width:min(520px,calc(100vw - 32px));padding:26px 26px 22px;border:1px solid rgba(236,229,213,.14);border-radius:14px;background:#17212a;color:var(--bone);box-shadow:0 30px 80px -20px rgba(0,0,0,.7)}
+#offDlg::backdrop{background:rgba(6,9,12,.72)}
+#offDlg h2{margin:0 0 10px;font:700 26px/1.1 'Barlow Condensed',sans-serif;letter-spacing:.01em}
+#offDlg p{margin:0 0 12px;color:var(--ash);font-size:16px;line-height:1.45}
+#offDlg a{color:var(--ember);font-weight:600}
+.osl{display:grid;grid-template-columns:1fr auto;gap:2px 12px;margin:14px 0 0;font:600 17px/1.2 'Barlow Condensed',sans-serif}
+.osl output{color:var(--ember);text-align:right}
+.osl input{grid-column:1/-1;width:100%;accent-color:var(--ember);margin:4px 0 0}
+.osl small{grid-column:1/-1;display:flex;justify-content:space-between;color:rgba(151,160,163,.8);font:500 13px 'Barlow',sans-serif}
+.orow{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-top:22px}
+.ogo{height:46px;padding:0 22px;border:0;border-radius:10px;background:linear-gradient(180deg,#f8ae50,#ef9233);color:#2b1406;font:400 20px/1 'Alfa Slab One',Georgia,serif;cursor:pointer;box-shadow:0 4px 0 var(--ember-lo)}
+.ogo:active{transform:translateY(3px);box-shadow:0 1px 0 var(--ember-lo)}
+.olnk{font:600 17px 'Barlow Condensed',sans-serif;color:var(--ash);background:none;border:0;border-bottom:1px solid rgba(151,160,163,.4);padding:3px 1px;cursor:pointer}
+.olnk:hover{color:var(--bone)}
+.olnk.warn{color:#e58f7a;border-bottom-color:rgba(229,143,122,.4);margin-left:auto}
+#offFrame{position:fixed;inset:0;width:100%;height:100%;border:0;background:#121a21;z-index:10}
 </style>
 </head>
 <body>
@@ -101,8 +119,18 @@ h1 span{display:inline-block;padding:0 4px 10px;background:linear-gradient(178de
     <p class="more"><a href="guide.html">How to play: controls, zombies, building and tips</a></p>
   </section>
 
-  <p class="foot">The server runs on a home PC, so it is only up while its owner has it switched on. Your character is remembered in this browser. <a href="rules.html">Rules</a> · <a href="privacy.html">Privacy</a> · © 2026 Ashen. All rights reserved.</p>
+  <p class="foot">The server runs on a home PC, so it is only up while its owner has it switched on. Your character is remembered in this browser. <a href="rules.html">Rules</a> · <a href="privacy.html">Privacy</a> · © 2026 Ashen. All rights reserved. · <button type="button" class="offl" id="offl">Play offline</button></p>
 </main>
+<dialog id="offDlg" aria-labelledby="offH">
+  <h2 id="offH">Play offline</h2>
+  <p>Offline mode is a backup for when the online server is down. The game runs right here in your browser, with bots instead of real players, and your offline world is kept only in this browser. We suggest going back to the online game whenever it is up.</p>
+  <p>If something isn't working, join our <a href="https://discord.gg/AM4NHkZPKM" target="_blank" rel="noopener">Discord</a> and send us a message, or email Ashen support.</p>
+  <label class="osl">Bots <output id="oBv"></output><input type="range" id="oB" min="0" max="30" step="1"><small><span>None</span><span>30</span></small></label>
+  <label class="osl">Bot weapons <output id="oWv"></output><input type="range" id="oW" min="0" max="100" step="1"><small><span>Melee only</span><span>The best guns, early</span></small></label>
+  <label class="osl">Bot aim <output id="oAv"></output><input type="range" id="oA" min="0" max="100" step="1"><small><span>Wild</span><span>Sharp</span></small></label>
+  <label class="osl">Bot aggression <output id="oGv"></output><input type="range" id="oG" min="0" max="100" step="1"><small><span>Peaceful</span><span>Ruthless</span></small></label>
+  <div class="orow"><button type="button" class="ogo" id="oGo">Start offline</button><button type="button" class="olnk" id="oBack">Back to online</button><button type="button" class="olnk warn" id="oNew">New world</button></div>
+</dialog>
 <script>
 'use strict';
 const $ = id => document.getElementById(id);
@@ -152,7 +180,7 @@ async function readLink(){
   return null;
 }
 
-let timer = null;
+let timer = null, jump = null, offline = /^#offline$/i.test(location.hash);
 async function check(){
   clearTimeout(timer); $('retry').hidden = true;
   show('wait', 'Finding the server…');
@@ -169,8 +197,9 @@ async function check(){
   if (full) return later('bad', `The server is full (${n} of ${max})`, 'Someone has to leave first. This page checks again every 20 seconds.', true);
   const head = n ? `${n} of ${max} survivors online` : `The server is up. Room for ${max}.`;
   if (!returning){ show('ok', head, 'Press Play to join. No download or account needed.'); timer = setTimeout(check, 60000); return; }
+  if (offline) return;
   show('ok', head, 'Taking you there…');
-  setTimeout(() => location.replace(gameLink(url)), 900);
+  jump = setTimeout(() => { if (!offline) location.replace(gameLink(url)); }, 900);
 }
 $('go').addEventListener('click', e => { const h = $('go').getAttribute('href'); if (!h || h === '#') return; e.preventDefault(); location.assign(gameLink(h)); });
 function later(state, msg, sub, keepPlay){
@@ -179,6 +208,31 @@ function later(state, msg, sub, keepPlay){
 }
 $('retry').addEventListener('click', check);
 check();
+
+// ---- offline mode: the game and its server run in this page (bots instead of players). Settings kept in this browser.
+const OFF_KEY = 'ashen-offline-settings', dlg = $('offDlg');
+const SL = [['oB', 'b', 10, v => v === 0 ? 'none' : String(v)], ['oW', 'w', 50, v => v < 12 ? 'melee only' : v < 40 ? 'few guns' : v < 65 ? 'normal' : v < 88 ? 'well armed' : 'best guns'],
+  ['oA', 'a', 50, v => v < 20 ? 'wild' : v < 40 ? 'shaky' : v < 65 ? 'normal' : v < 85 ? 'good' : 'sharp'], ['oG', 'g', 50, v => v < 20 ? 'peaceful' : v < 40 ? 'calm' : v < 65 ? 'normal' : v < 85 ? 'hostile' : 'ruthless']];
+let offSet = {}; try { offSet = JSON.parse(localStorage.getItem(OFF_KEY) || '{}') || {}; } catch (e) {}
+for (const [id, k, d, label] of SL){ const el = $(id), out = $(id + 'v'); el.value = Number.isFinite(offSet[k]) ? offSet[k] : d; const upd = () => { out.textContent = label(+el.value); }; el.addEventListener('input', upd); upd(); }
+function openOffline(){ offline = true; clearTimeout(jump); clearTimeout(timer); if (!dlg.open) dlg.showModal(); }
+$('offl').addEventListener('click', openOffline);
+$('oBack').addEventListener('click', () => { dlg.close(); offline = false; history.replaceState(null, '', location.pathname + location.search); check(); });
+$('oNew').addEventListener('click', e => {
+  const b = e.currentTarget; if (!b.dataset.sure){ b.dataset.sure = '1'; b.textContent = 'Delete the offline world?'; setTimeout(() => { delete b.dataset.sure; b.textContent = 'New world'; }, 4000); return; }
+  delete b.dataset.sure; b.textContent = 'Deleting…';
+  const done = t => { b.textContent = t; setTimeout(() => { b.textContent = 'New world'; }, 2500); };
+  try { const r = indexedDB.deleteDatabase('ashen-offline'); r.onsuccess = () => done('Deleted: a fresh world next time'); r.onerror = r.onblocked = () => done('Could not delete it'); } catch (err){ done('Could not delete it'); }
+});
+$('oGo').addEventListener('click', () => {
+  const v = {}; for (const [id, k] of SL) v[k] = +$(id).value; try { localStorage.setItem(OFF_KEY, JSON.stringify(v)); } catch (e) {}
+  offline = true; clearTimeout(jump); clearTimeout(timer); dlg.close();
+  const f = document.createElement('iframe'); f.id = 'offFrame'; f.title = 'Ashen (offline)'; f.allow = 'autoplay; fullscreen';
+  f.src = 'play-offline.html#' + new URLSearchParams(Object.entries(v).map(([k, x]) => [k, String(x)])).toString();
+  document.body.appendChild(f); document.querySelector('main').hidden = true; document.title = 'Ashen (offline)';
+  f.addEventListener('load', () => { try { f.contentWindow.focus(); } catch (e) {} });
+});
+if (offline) openOffline();
 </script>
 </body>
 </html>
